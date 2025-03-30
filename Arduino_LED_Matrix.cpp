@@ -23,11 +23,6 @@ This code is in the Public Domain
 
 ArduinoLEDMatrix matrix;
 
-void setup() {
-  Serial.begin(115200);
-  matrix.begin();
-}
-
 const uint32_t happy[] = {
     0x19819,
     0x80000001,
@@ -38,33 +33,40 @@ const uint32_t heart[] = {
     0x44042081,
     0x100a0040
 };
-const uint32_t bright[] = {
+const uint32_t on[] = {
 		0xffffffff,
 		0xffffffff,
-		0xffffffff,
-		66
+		0xffffffff
 };
-const uint32_t dark[] = {
+const uint32_t off[] = {
 		0x0,
 		0x800400,
-		0x0,
-		66
+		0x0
 };
   
-void loop(){
-  matrix.loadFrame(bright);
-  delay(3000);
+void flash(){
+  for (int i = 0; i < 7; i++){
+    matrix.loadFrame(on);
+    delay(250);
 
-  matrix.loadFrame(dark);
-  delay(1500);
-
-  void flash()}
-    matrix.loadFrame(bright);
-    delay(50);
-
-    matrix.loadFrame(dark);
-    delay(50);
+    matrix.loadFrame(off);
+    delay(250);
   }
+}
+
+void setup() {
+  Serial.begin(115200);
+  matrix.begin();
+}
+
+void loop(){
+//  matrix.loadFrame(on);
+//  delay(3000);
+
+//  matrix.loadFrame(off);
+//  delay(1500);
+
+  flash();
 
   delay(1500);
 }
